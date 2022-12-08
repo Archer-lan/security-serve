@@ -1,0 +1,26 @@
+{
+    "product":"sequelize",
+    "use_pool":true,
+    "options":{
+        "dialect":"mysql",
+        "host":"localhost",
+        "port":3306,
+        "username":"your user",
+        "password":"your password",
+        "database":"your db",
+        "pool": {
+            "max": 5,
+            "min": 0,
+            "acquire": 30000,
+            "idle": 10000
+        },
+        "define": {
+            "timestamps": false
+        },
+        "models":["your model js file directory"],
+        "repositoryMode":true
+    },
+    "transaction":{
+        "expressions":[]
+    }
+}

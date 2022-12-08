@@ -1,0 +1,15 @@
+{
+    "product":"mysql",
+    "use_pool":true,
+    "options":{
+        "host":"localhost",
+        "port":3306,
+        "user":"root",
+        "password":"password",
+        "database":"infosecurity",
+        "connectionLimit":10
+    },
+    "transaction":{
+        "expressions":[]
+    }
+}

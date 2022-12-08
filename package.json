@@ -1,0 +1,23 @@
+{
+    "name": "noomitest",
+    "version": "1.0.0",
+    "description": "noomitest",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc"
+    },
+    "author": "noomi group",
+    "license": "",
+    "repository": {},
+    "dependencies": {
+        "crypto": "^1.0.1",
+        "log4js": "^6.7.1",
+        "mysql": "^2.18.1",
+        "mysql2": "^2.3.3",
+        "noomi": "^1.0.0-beta5",
+        "relaen": "^0.3.1-final"
+    },
+    "keywords": [
+        "noomi"
+    ]
+}

@@ -1,0 +1,18 @@
+{
+    "product":"typeorm",
+    "options":{
+        "type": "mysql",
+        "host": "localhost",
+        "port": 3306,
+        "username": "your user",
+        "password": "your password",
+        "database": "your db",
+        "logging": true,
+        "entities": [
+            "your entity js file directory/*.js"
+        ]
+    },
+    "transaction":{
+        "isolation_level":1
+    }
+}

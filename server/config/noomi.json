@@ -1,0 +1,13 @@
+{
+    "app_name":"App", 	 //应用名，当一个服务器运行多个应用是，需要配置
+    "language":"zh", 	 //框架提示语言(可选配置)，zh中文，en英文，默认zh
+    "open_watcher":true, //打开file watcher支持热部署
+	"cluster":false,	 //集群设置，如果设置为true，则表示运行于集群环境，所有NCaceh的save_type都设置为1
+    "web":"web.json",
+    "instance":["/dist/server/module/**/*.js"],
+     "database":"relaen.json",
+    //redis文件配置方式
+    // "redis":"redis.json",
+    //安全框架，文件方式
+    // "security":"security.json"
+}

@@ -1,0 +1,23 @@
+{
+  "product": "relaen",
+  "use_pool": true,
+  "options": {
+    "dialect": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "password",
+    "database": "infosecurity",
+    "pool": {
+      "min": 0,
+      "max": 10
+    },
+    "entities": [
+      "/dist/server/module/dao/entity/*.js"
+    ],
+    "debug": true
+  },
+  "transaction": {
+    "expressions": []
+  }
+}
