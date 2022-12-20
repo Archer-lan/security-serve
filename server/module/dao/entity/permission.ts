@@ -1,6 +1,6 @@
 import {BaseEntity,Entity,Column,Id,JoinColumn,ManyToOne,EntityProxy} from 'relaen';
 import {User} from './user';
-import {assessment} from './assessment';
+import {Assessment} from './assessment';
 
 @Entity('t_permission')
 export class permission extends BaseEntity{
@@ -27,13 +27,13 @@ export class permission extends BaseEntity{
 	})
 	public level:number;
 
-	@ManyToOne({entity:'assessment'})
+	@ManyToOne({entity:'Assessment'})
 	@JoinColumn({
 		name:'assessment_id',
 		refName:'id',
 		nullable:false
 	})
-	public assessment:assessment;
+	public assessment:Assessment;
 
 	@Column({
 		name:'status',
@@ -49,7 +49,7 @@ export class permission extends BaseEntity{
 	public async getUser():Promise<User>{
 		return this['user']?this['user']:await EntityProxy.get(this,'user');
 	}
-	public async getAssessment():Promise<assessment>{
+	public async getAssessment():Promise<Assessment>{
 		return this['assessment']?this['assessment']:await EntityProxy.get(this,'assessment');
 	}
 

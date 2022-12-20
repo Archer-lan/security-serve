@@ -1,11 +1,11 @@
 import {BaseEntity,Entity,Column,Id,JoinColumn,ManyToOne,OneToMany,EntityProxy} from 'relaen';
-import {assessment} from './assessment';
-import {risk} from './risk';
-import {threaten} from './threaten';
-import {vulnerability} from './vulnerability';
+import {Assessment} from './assessment';
+import {Risk} from './risk';
+import {Threaten} from './threaten';
+import {Vulnerability} from './vulnerability';
 
 @Entity('t_assets')
-export class assets extends BaseEntity{
+export class Assets extends BaseEntity{
 	@Id()
 	@Column({
 		name:'id',
@@ -74,13 +74,13 @@ export class assets extends BaseEntity{
 	})
 	public note:string;
 
-	@ManyToOne({entity:'assessment'})
+	@ManyToOne({entity:'Assessment'})
 	@JoinColumn({
 		name:'assessment_id',
 		refName:'id',
 		nullable:false
 	})
-	public assessment:assessment;
+	public assessment:Assessment;
 
 	@Column({
 		name:'status',
@@ -93,34 +93,34 @@ export class assets extends BaseEntity{
 		entity:'risk',
 		mappedBy:'assets'
 	})
-	public risks:Array<risk>;
+	public risks:Array<Risk>;
 
 	@OneToMany({
 		entity:'threaten',
 		mappedBy:'assets'
 	})
-	public threatens:Array<threaten>;
+	public threatens:Array<Threaten>;
 
 	@OneToMany({
 		entity:'vulnerability',
 		mappedBy:'assets'
 	})
-	public vulnerabilitys:Array<vulnerability>;
+	public vulnerabilitys:Array<Vulnerability>;
 
 	constructor(idValue?:number){
 		super();
 		this.id = idValue;
 	}
-	public async getAssessment():Promise<assessment>{
+	public async getAssessment():Promise<Assessment>{
 		return this['assessment']?this['assessment']:await EntityProxy.get(this,'assessment');
 	}
-	public async getRisks():Promise<Array<risk>>{
+	public async getRisks():Promise<Array<Risk>>{
 		return this['risks']?this['risks']:await EntityProxy.get(this,'risks');
 	}
-	public async getThreatens():Promise<Array<threaten>>{
+	public async getThreatens():Promise<Array<Threaten>>{
 		return this['threatens']?this['threatens']:await EntityProxy.get(this,'threatens');
 	}
-	public async getVulnerabilitys():Promise<Array<vulnerability>>{
+	public async getVulnerabilitys():Promise<Array<Vulnerability>>{
 		return this['vulnerabilitys']?this['vulnerabilitys']:await EntityProxy.get(this,'vulnerabilitys');
 	}
 }

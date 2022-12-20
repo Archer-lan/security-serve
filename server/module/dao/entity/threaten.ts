@@ -1,10 +1,10 @@
 import {BaseEntity,Entity,Column,Id,JoinColumn,ManyToOne,OneToMany,EntityProxy} from 'relaen';
-import {assets} from './assets';
-import {assessment} from './assessment';
-import {vulnerability} from './vulnerability';
+import {Assets} from './assets';
+import {Assessment} from './assessment';
+import {Vulnerability} from './vulnerability';
 
 @Entity('t_threaten')
-export class threaten extends BaseEntity{
+export class Threaten extends BaseEntity{
 	@Id()
 	@Column({
 		name:'id',
@@ -13,13 +13,13 @@ export class threaten extends BaseEntity{
 	})
 	public id:number;
 
-	@ManyToOne({entity:'assets'})
+	@ManyToOne({entity:'Assets'})
 	@JoinColumn({
 		name:'asset_id',
 		refName:'id',
 		nullable:false
 	})
-	public assets:assets;
+	public assets:Assets;
 
 	@Column({
 		name:'type',
@@ -44,13 +44,13 @@ export class threaten extends BaseEntity{
 	})
 	public note:string;
 
-	@ManyToOne({entity:'assessment'})
+	@ManyToOne({entity:'Assessment'})
 	@JoinColumn({
 		name:'assessment_id',
 		refName:'id',
 		nullable:false
 	})
-	public assessment:assessment;
+	public assessment:Assessment;
 
 	@Column({
 		name:'status',
@@ -63,19 +63,19 @@ export class threaten extends BaseEntity{
 		entity:'vulnerability',
 		mappedBy:'threaten'
 	})
-	public vulnerabilitys:Array<vulnerability>;
+	public vulnerabilitys:Array<Vulnerability>;
 
 	constructor(idValue?:number){
 		super();
 		this.id = idValue;
 	}
-	public async getAssets():Promise<assets>{
+	public async getAssets():Promise<Assets>{
 		return this['assets']?this['assets']:await EntityProxy.get(this,'assets');
 	}
-	public async getAssessment():Promise<assessment>{
+	public async getAssessment():Promise<Assessment>{
 		return this['assessment']?this['assessment']:await EntityProxy.get(this,'assessment');
 	}
-	public async getVulnerabilitys():Promise<Array<vulnerability>>{
+	public async getVulnerabilitys():Promise<Array<Vulnerability>>{
 		return this['vulnerabilitys']?this['vulnerabilitys']:await EntityProxy.get(this,'vulnerabilitys');
 	}
 }

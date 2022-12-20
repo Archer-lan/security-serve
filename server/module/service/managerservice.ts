@@ -45,4 +45,15 @@ export class ManagerService{
         await em.close();
         return results;
     }
+    //查询对应username用户
+    async queryUserByName(username:string){
+        let params={
+            "username":{
+                value:username,
+                rel:"="
+            }
+        }
+        let user:User=<User> await User.findOne(params);
+        return user;
+    }
 }

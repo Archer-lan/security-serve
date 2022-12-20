@@ -7,10 +7,17 @@ export enum Responesecode {
     Error5="账号未登陆，无法注销",
     Error6="此账号没有访问权限",
     Error7="名称已存在请重新命名",
+    Error8="您没有操作权限",
+    Error9="此用户不存在",
+    Error10="评估对象不存在",
+    Error11="资产条目不存在",
+    Error12="此条威胁不存在",
+    Error13="此条脆弱性不存在",
     DONE1="注册成功",
     DONE2="登录成功",
     DONE3="修改密码成功",
     DONE4="注销成功",
     DONE5="删除成功",
-    DONE6="添加成功"
+    DONE6="添加成功",
+    DONE7="修改成功"
 }

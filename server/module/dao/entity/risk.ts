@@ -1,9 +1,9 @@
 import {BaseEntity,Entity,Column,Id,JoinColumn,ManyToOne,EntityProxy} from 'relaen';
-import {assets} from './assets';
-import {assessment} from './assessment';
+import {Assets} from './assets';
+import {Assessment} from './assessment';
 
 @Entity('t_risk')
-export class risk extends BaseEntity{
+export class Risk extends BaseEntity{
 	@Id()
 	@Column({
 		name:'id',
@@ -18,7 +18,7 @@ export class risk extends BaseEntity{
 		refName:'id',
 		nullable:false
 	})
-	public assets:assets;
+	public assets:Assets;
 
 	@Column({
 		name:'possibility',
@@ -41,13 +41,13 @@ export class risk extends BaseEntity{
 	})
 	public risk:number;
 
-	@ManyToOne({entity:'assessment'})
+	@ManyToOne({entity:'Assessment'})
 	@JoinColumn({
 		name:'assessment_id',
 		refName:'id',
 		nullable:false
 	})
-	public assessment:assessment;
+	public assessment:Assessment;
 
 	@Column({
 		name:'grade',
@@ -67,10 +67,10 @@ export class risk extends BaseEntity{
 		super();
 		this.id = idValue;
 	}
-	public async getAssets():Promise<assets>{
+	public async getAssets():Promise<Assets>{
 		return this['assets']?this['assets']:await EntityProxy.get(this,'assets');
 	}
-	public async getAssessment():Promise<assessment>{
+	public async getAssessment():Promise<Assessment>{
 		return this['assessment']?this['assessment']:await EntityProxy.get(this,'assessment');
 	}
 }

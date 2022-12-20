@@ -8,7 +8,7 @@ import {ManagerService} from "../service/managerservice";
     namespace:"/manager",
     path:"*"
 })
-class UserRoute extends BaseRoute{
+class ManagerRoute extends BaseRoute{
     //注入
     @Inject(ManagerService)
     managerService:ManagerService;
