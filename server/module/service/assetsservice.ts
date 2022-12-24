@@ -79,20 +79,16 @@ export class AssetsService{
         return Responesecode.DONE7;
     }
     //删除对应资产条目
-    async delete(request: HttpRequest, name, proid: any) {
+    async delete(request: HttpRequest, id, proid: any) {
         let res=await this.permissionService.isPermitted(request,proid);
         if(!res){
             throw Responesecode.Error6;
         }
         let params={
-            "name":{
-                value:name,
+            "id":{
+                value:id,
                 rel:'='
             },
-            "assessment.id":{
-                value:proid,
-                rel:"="
-            }
         }
         let assets:Assets=<Assets> await Assets.findOne(params);
         if(!assets){

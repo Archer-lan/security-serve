@@ -76,7 +76,7 @@ class AssetsRoute extends BaseRoute{
      */
     async delete(){
         try{
-            let res=await this.assetsService.delete(this.request,this.model.name,this.model.proid);
+            let res=await this.assetsService.delete(this.request,this.model.id,this.model.proid);
             return {
                 result:Responesecode.SUCCESS,
                 message:res,
