@@ -2,7 +2,7 @@ import {HttpRequest, Instance, SessionFactory} from "noomi";
 import {Responesecode} from "../util/responeseCode";
 import {EntityManager, getEntityManager, Query} from "relaen";
 import {User} from "../dao/entity/user";
-import {permission} from "../dao/entity/permission";
+import {Permission} from "../dao/entity/permission";
 import {Assessment} from "../dao/entity/assessment";
 import {Threaten} from "../dao/entity/threaten";
 @Instance()
@@ -25,13 +25,13 @@ export class PermissionService{
                 rel:'='
             }
         }
-        let pro=<permission> await permission.findOne(params);
+        let pro=<Permission> await Permission.findOne(params);
         if(!pro) return false;
         else return true;
     }
     //添加操作用户
     async add(user:User,ass:Assessment){
-        let pers:permission=new permission();
+        let pers:Permission=new Permission();
         pers.user=user;
         pers.assessment=ass;
         pers.level=1;
@@ -58,7 +58,7 @@ export class PermissionService{
                 rel:'>='
             }
         }
-        let pro=<permission> await permission.findOne(params);
+        let pro=<Permission> await Permission.findOne(params);
         if(!pro) return false;
         else return true;
     }
@@ -82,8 +82,8 @@ export class PermissionService{
             }
         }
         let em:EntityManager=await getEntityManager();
-        let query:Query=em.createQuery(permission.name);
-        let r=await query.select(["*","user.id","user.username","user.create_time","assessment.*"])
+        let query:Query=em.createQuery(Permission.name);
+        let r=await query.select(["*","user.id","user.username","assessment.*"])
             .where(params)
             .getResultList();
         await em.close();

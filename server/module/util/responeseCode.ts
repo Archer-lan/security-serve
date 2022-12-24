@@ -13,11 +13,13 @@ export enum Responesecode {
     Error11="资产条目不存在",
     Error12="此条威胁不存在",
     Error13="此条脆弱性不存在",
+    Error14="此条结果值不存在",
     DONE1="注册成功",
     DONE2="登录成功",
     DONE3="修改密码成功",
     DONE4="注销成功",
     DONE5="删除成功",
     DONE6="添加成功",
-    DONE7="修改成功"
+    DONE7="修改成功",
+    DONE8="计算完成"
 }

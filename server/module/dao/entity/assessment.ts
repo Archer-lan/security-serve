@@ -1,6 +1,6 @@
 import {BaseEntity,Entity,Column,Id,OneToMany,EntityProxy} from 'relaen';
 import {Assets} from './assets';
-import {permission} from './permission';
+import {Permission} from './permission';
 import {Risk} from './risk';
 import {Threaten} from './threaten';
 import {Vulnerability} from './vulnerability';
@@ -48,7 +48,7 @@ export class Assessment extends BaseEntity{
 		entity:'permission',
 		mappedBy:'assessment'
 	})
-	public permissions:Array<permission>;
+	public permissions:Array<Permission>;
 
 	@OneToMany({
 		entity:'risk',
@@ -75,7 +75,7 @@ export class Assessment extends BaseEntity{
 	public async getAssetss():Promise<Array<Assets>>{
 		return this['assetss']?this['assetss']:await EntityProxy.get(this,'assetss');
 	}
-	public async getPermissions():Promise<Array<permission>>{
+	public async getPermissions():Promise<Array<Permission>>{
 		return this['permissions']?this['permissions']:await EntityProxy.get(this,'permissions');
 	}
 	public async getRisks():Promise<Array<Risk>>{

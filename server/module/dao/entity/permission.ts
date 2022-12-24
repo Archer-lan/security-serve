@@ -3,7 +3,7 @@ import {User} from './user';
 import {Assessment} from './assessment';
 
 @Entity('t_permission')
-export class permission extends BaseEntity{
+export class Permission extends BaseEntity{
 	@Id()
 	@Column({
 		name:'id',

@@ -1,7 +1,7 @@
 import {HttpRequest, Inject, Instance, SessionFactory} from "noomi";
 import {Responesecode} from "../util/responeseCode";
 import {Assessment} from "../dao/entity/assessment";
-import {permission} from "../dao/entity/permission";
+import {Permission} from "../dao/entity/permission";
 import {User} from "../dao/entity/user";
 import {Connection, getConnection, Transaction} from "relaen";
 import {PermissionService} from "./permissionservice";
@@ -40,7 +40,7 @@ export class AssessmentService{
         let user = JSON.parse(await session.get('user'));
         let res2:User=<User> await User.find(user.id);
 
-        let pmsion:permission=new permission();
+        let pmsion:Permission=new Permission();
 
         pmsion.assessment=asment;
         pmsion.user=res2;
@@ -73,10 +73,10 @@ export class AssessmentService{
         await ass.save(true);
     }
     //修改
-    async alter(request: HttpRequest,name:string,note:string){
+    async alter(request: HttpRequest,proid:string,name:string,note:string){
         let params={
-            "name":{
-                value:name,
+            "id":{
+                value:proid,
                 rel:'='
             }
         }
@@ -88,6 +88,7 @@ export class AssessmentService{
         if(!isCreator){
             throw Responesecode.Error8;
         }
+        ass.name=name;
         ass.note=note;
         await ass.save(true);
         return Responesecode.DONE7

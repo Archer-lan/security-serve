@@ -59,7 +59,7 @@ class AssessmentRoute extends BaseRoute{
      */
     async alter(){
         try{
-            let res=await this.assessmentService.alter(this.request,this.model.name,this.model.note);
+            let res=await this.assessmentService.alter(this.request,this.model.proid,this.model.name,this.model.note);
             return {
                 result:Responesecode.SUCCESS,
                 message:res,

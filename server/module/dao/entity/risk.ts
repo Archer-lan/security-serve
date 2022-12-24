@@ -12,7 +12,7 @@ export class Risk extends BaseEntity{
 	})
 	public id:number;
 
-	@ManyToOne({entity:'assets'})
+	@ManyToOne({entity:'Assets'})
 	@JoinColumn({
 		name:'asset_id',
 		refName:'id',

@@ -1,5 +1,5 @@
 import {BaseEntity,Entity,Column,Id,OneToMany,EntityProxy} from 'relaen';
-import {permission} from './permission';
+import {Permission} from './permission';
 
 @Entity('t_user')
 export class User extends BaseEntity{
@@ -52,13 +52,13 @@ export class User extends BaseEntity{
 		entity:'permission',
 		mappedBy:'user'
 	})
-	public permissions:Array<permission>;
+	public permissions:Array<Permission>;
 
 	constructor(idValue?:number){
 		super();
 		this.id = idValue;
 	}
-	public async getPermissions():Promise<Array<permission>>{
+	public async getPermissions():Promise<Array<Permission>>{
 		return this['permissions']?this['permissions']:await EntityProxy.get(this,'permissions');
 	}
 }

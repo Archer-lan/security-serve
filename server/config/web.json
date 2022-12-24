@@ -2,12 +2,12 @@
     "web_config":{
         "upload_tmp_dir":"/upload/tmp", //上传临时目录，相对于项目根目录，以/开始
         "upload_max_size":0,			//上传内容最大字节数
-        "static_path":["/web","/upload"], //静态资源路径
-        "welcome":"/web/index.html", 	//welcome 页面
+        "static_path":["/web","/upload","/pages","/assets"], //静态资源路径
+        "welcome":"/pages/index.html", 	//welcome 页面
         //跨域设置
         "cors":{
             "domain":"*",               //跨域域设置
-            "allow_headers":"x-token",  //自定义header，多个以","分割，method=options时有效
+            "allow_headers":"x-token,Content-type,content-type,Access-Control-Allow-Origin,Access-Control-Allow-Credentials,Access-Control-Allow-Methods",  //自定义header，多个以","分割，method=options时有效
             "access_max_age":86400      //预检结果缓存时间(秒)，默认24小时
         },
         "cache":true,					//是否启用静态资源缓存，如果为false，则cache_option无效，默认false
