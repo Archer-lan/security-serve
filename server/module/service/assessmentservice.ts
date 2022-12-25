@@ -99,6 +99,10 @@ export class AssessmentService{
             "name":{
                 value:name,
                 rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
             }
         }
         let ass:Assessment=<Assessment> await Assessment.findOne(params);

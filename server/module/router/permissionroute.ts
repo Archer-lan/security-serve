@@ -29,4 +29,58 @@ class PermissionRoute extends BaseRoute{
             }
         }
     }
+    /**
+     *   查找评估对象所有协作者
+     *   @param proid  评估对象id
+     */
+    async queryAllHelper(){
+        try{
+            let res=await this.permissionService.queryAllHelper(this.request,this.model.proid);
+            return {
+                result:Responesecode.SUCCESS,
+                message:res,
+            }
+        }catch (e){
+            return {
+                result:Responesecode.FAIL,
+                message:e,
+            }
+        }
+    }
+    /**
+     *   查找当前用户对应评估对象操作等级
+     *   @param proid  评估对象id
+     */
+    async queryLevel(){
+        try{
+            let res=await this.permissionService.queryLevel(this.request,this.model.proid);
+            return {
+                result:Responesecode.SUCCESS,
+                message:res,
+            }
+        }catch (e){
+            return {
+                result:Responesecode.FAIL,
+                message:e,
+            }
+        }
+    }
+    /**
+     *   查找当前用户对应评估对象操作等级
+     *   @param proid  评估对象id
+     */
+    async delete(){
+        try{
+            let res=await this.permissionService.delete(this.request,this.model.proid,this.model.id);
+            return {
+                result:Responesecode.SUCCESS,
+                message:res,
+            }
+        }catch (e){
+            return {
+                result:Responesecode.FAIL,
+                message:e,
+            }
+        }
+    }
 }

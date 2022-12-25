@@ -13,7 +13,17 @@ export class VulnerableService{
     permissionService:PermissionService;
     //添加
     async add(request: HttpRequest, assetsid: number, type, value, proid: number, threatenid: number) {
-        let ass:Assessment=<Assessment> await Assessment.find(proid);
+        let params1={
+            "id":{
+                value:proid,
+                rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            },
+        }
+        let ass:Assessment=<Assessment> await Assessment.findOne(params1);
         if(!ass){
             throw Responesecode.Error10
         }
@@ -21,11 +31,39 @@ export class VulnerableService{
         if(!res){
             throw Responesecode.Error6;
         }
-        let assets:Assets=<Assets> await Assets.find(assetsid);
+        let params2={
+            "id":{
+                value:assetsid,
+                rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            },
+            "assessment.id":{
+                value:proid,
+                rel:'='
+            }
+        }
+        let assets:Assets=<Assets> await Assets.findOne(params2);
         if(!assets){
             throw Responesecode.Error11;
         }
-        let threaten:Threaten=<Threaten> await Threaten.find(threatenid);
+        let params3={
+            "id":{
+                value:threatenid,
+                rel:'='
+            },
+            "assessment.id":{
+                value:proid,
+                rel:'='
+            },
+            "status":{
+                value:'0',
+                rel:'='
+            }
+        }
+        let threaten:Threaten=<Threaten> await Threaten.findOne(params3);
         if(!threaten){
             throw Responesecode.Error12;
         }
@@ -45,7 +83,17 @@ export class VulnerableService{
         if(!res){
             throw Responesecode.Error6;
         }
-        let vul:Vulnerability=<Vulnerability> await Vulnerability.find(vulid);
+        let params1={
+            "id":{
+                value:vulid,
+                rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            },
+        }
+        let vul:Vulnerability=<Vulnerability> await Vulnerability.findOne(params1);
         if(!vul){
             throw Responesecode.Error13;
         }
@@ -64,7 +112,17 @@ export class VulnerableService{
         if(!res){
             throw Responesecode.Error6;
         }
-        let vul:Vulnerability=<Vulnerability> await Vulnerability.find(vulid);
+        let params1={
+            "id":{
+                value:vulid,
+                rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            },
+        }
+        let vul:Vulnerability=<Vulnerability> await Vulnerability.findOne(params1);
         if(!vul){
             throw Responesecode.Error13;
         }

@@ -59,9 +59,29 @@ export class CalculateService{
         let possible;
         let loss;
         for(let i=0;i<vul.length;i++){
-            let asset:Assets=<Assets> await Assets.find(vul[i].assets.id);
+            let params1={
+                "id":{
+                    value:vul[i].assets.id,
+                    rel:'='
+                },
+                "status":{
+                    value:0,
+                    rel:'='
+                }
+            }
+            let asset:Assets=<Assets> await Assets.findOne(params1);
             if(!asset) throw Responesecode.Error11;
-            let assessment:Assessment=<Assessment> await Assessment.find(vul[i].assessment.id);
+            let params2={
+                "id":{
+                    value:vul[i].assessment.id,
+                    rel:'='
+                },
+                "status":{
+                    value:0,
+                    rel:'='
+                }
+            }
+            let assessment:Assessment=<Assessment> await Assessment.findOne(params2);
             if(!assessment) throw Responesecode.Error10;
             possible=poslevel[pos[vul[i].threaten.value-1][vul[i].value-1]];
             loss=lolevel[lo[vul[i].assets.importance-1][vul[i].value-1]];
@@ -79,7 +99,7 @@ export class CalculateService{
         }
         return await this.queryAll(request,proid);
     }
-
+    //查找当前评估对象所有结果值
     async queryAll(request: HttpRequest, proid: any){
         let params={
             "assessment.id":{
@@ -99,7 +119,7 @@ export class CalculateService{
         await em.close()
         return r;
     }
-
+    //删除计算结果值
     async delete(request: HttpRequest, proid: any, id) {
         if(!await this.permissionService.isPermitted(request,proid)) throw Responesecode.Error8;
         let params={
@@ -107,8 +127,16 @@ export class CalculateService{
                 value:id,
                 rel:"="
             },
+            "assessment.id":{
+                value:proid,
+                rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            }
         }
-        let risk:Risk=<Risk> await Risk.find(id);
+        let risk:Risk=<Risk> await Risk.findOne(params);
         if(!risk) throw Responesecode.Error14;
         risk.status=1;
         await risk.save(true);

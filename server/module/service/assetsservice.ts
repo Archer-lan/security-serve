@@ -5,6 +5,8 @@ import {PermissionService} from "./permissionservice";
 import {Assets} from "../dao/entity/assets";
 import {release} from "os";
 import {Assessment} from "../dao/entity/assessment";
+import {Vulnerability} from "../dao/entity/vulnerability";
+import {Threaten} from "../dao/entity/threaten";
 
 @Instance()
 export class AssetsService{
@@ -48,6 +50,10 @@ export class AssetsService{
             "assessment.id":{
                 value:proid,
                 rel:"="
+            },
+            "status":{
+                value:0,
+                rel:'='
             }
         }
         let assets:Assets=<Assets> await Assets.findOne(params);
@@ -89,10 +95,36 @@ export class AssetsService{
                 value:id,
                 rel:'='
             },
+            "assessment.id":{
+                value:proid,
+                rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            }
         }
         let assets:Assets=<Assets> await Assets.findOne(params);
         if(!assets){
             throw Responesecode.Error11;
+        }
+        let params2={
+            "assets.id":{
+                value:id,
+                rel:'='
+            },
+            "assessment.id":{
+                value:proid,
+                rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            }
+        }
+        let threaten:Threaten=<Threaten> await Threaten.findOne(params2);
+        if(threaten){
+            throw Responesecode.Error16;
         }
         assets.status=1;
         await assets.save(true);
@@ -112,7 +144,7 @@ export class AssetsService{
             "status":{
                 value:0,
                 rel:'='
-            }
+            },
         }
         let em:EntityManager = await getEntityManager();
         let query:Query = em.createQuery(Assets.name);

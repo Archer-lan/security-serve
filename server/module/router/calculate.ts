@@ -30,6 +30,11 @@ class CalculateRoute extends BaseRoute{
             }
         }
     }
+    /**
+     *   删除计算结果
+     *   @param proid    评估对象ID
+     *   @param id       计算结果id
+     */
     async delete(){
         try{
             let res=await this.calculateService.delete(this.request,this.model.proid,this.model.id);

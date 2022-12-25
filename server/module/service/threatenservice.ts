@@ -5,6 +5,7 @@ import {Assets} from "../dao/entity/assets";
 import {Assessment} from "../dao/entity/assessment";
 import {Threaten} from "../dao/entity/threaten";
 import {EntityManager, getEntityManager, Query} from "relaen";
+import {Vulnerability} from "../dao/entity/vulnerability";
 
 @Instance()
 export class ThreatenService{
@@ -12,7 +13,17 @@ export class ThreatenService{
     permissionService:PermissionService;
     //添加威胁
     async add(request: HttpRequest, assetsid: number, type:string, value, note:string, proid: number) {
-        let ass:Assessment=<Assessment> await Assessment.find(proid);
+        let params1={
+            "id":{
+                value:proid,
+                rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            },
+        }
+        let ass:Assessment=<Assessment> await Assessment.findOne(params1);
         if(!ass){
             throw Responesecode.Error10
         }
@@ -20,7 +31,21 @@ export class ThreatenService{
         if(!res){
             throw Responesecode.Error6;
         }
-        let assets:Assets=<Assets> await Assets.find(assetsid);
+        let params2={
+            "assessment.id":{
+                value:proid,
+                rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            },
+            "id":{
+                value:assetsid,
+                rel:'='
+            }
+        }
+        let assets:Assets=<Assets> await Assets.findOne(params2);
         if(!assets){
             throw Responesecode.Error11;
         }
@@ -40,7 +65,21 @@ export class ThreatenService{
         if(!res){
             throw Responesecode.Error6;
         }
-        let threaten:Threaten=<Threaten> await Threaten.find(threatenid);
+        let params1={
+            "id":{
+                value:threatenid,
+                rel:'='
+            },
+            "assessment.id":{
+                value:proid,
+                rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            },
+        }
+        let threaten:Threaten=<Threaten> await Threaten.findOne(params1);
         if(!threaten) throw Responesecode.Error12;
         if(type){
             threaten.type=type;
@@ -60,8 +99,40 @@ export class ThreatenService{
         if(!res){
             throw Responesecode.Error6;
         }
-        let threaten:Threaten=<Threaten> await Threaten.find(threatenid);
+        let params1={
+            "id":{
+                value:threatenid,
+                rel:'='
+            },
+            "assessment.id":{
+                value:proid,
+                rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            },
+        }
+        let threaten:Threaten=<Threaten> await Threaten.findOne(params1);
         if(!threaten) throw Responesecode.Error12;
+        let params2={
+            "threaten.id":{
+                value:threatenid,
+                rel:'='
+            },
+            "assessment.id":{
+                value:proid,
+                rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            }
+        }
+        let vul:Vulnerability=<Vulnerability> await Vulnerability.findOne(params2);
+        if(vul){
+            throw Responesecode.Error15;
+        }
         threaten.status=1;
         await threaten.save(true);
         return Responesecode.DONE5;
