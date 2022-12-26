@@ -94,7 +94,7 @@ export class AssessmentService{
         return Responesecode.DONE7
     }
     //添加成员
-    async addMembers(request: HttpRequest,name:string,username:string){
+    async addMembers(request: HttpRequest,name:string,username:string,memberlevel:number){
         let params={
             "name":{
                 value:name,
@@ -117,7 +117,7 @@ export class AssessmentService{
         if(!user){
             throw Responesecode.Error9;
         }
-        let res=await this.permissionService.add(user,ass);
+        let res=await this.permissionService.add(user,ass,memberlevel);
         return Responesecode.DONE6;
     }
 }

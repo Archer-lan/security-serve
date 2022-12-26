@@ -66,12 +66,32 @@ class PermissionRoute extends BaseRoute{
         }
     }
     /**
-     *   查找当前用户对应评估对象操作等级
-     *   @param proid  评估对象id
+     *   删除指定用户
+     *   @param id  权限信息id
      */
     async delete(){
         try{
             let res=await this.permissionService.delete(this.request,this.model.proid,this.model.id);
+            return {
+                result:Responesecode.SUCCESS,
+                message:res,
+            }
+        }catch (e){
+            return {
+                result:Responesecode.FAIL,
+                message:e,
+            }
+        }
+    }
+    /**
+     *   修改指定用户权限
+     *   @param proid  评估对象id
+     *   @param id     指定权限信息id
+     *   @param memberlevel 用户权限等级（1 只读，2 可修改，3 可删除）
+     */
+    async alter(){
+        try{
+            let res=await this.permissionService.alter(this.request,this.model.proid,this.model.id,this.model.memberlevel);
             return {
                 result:Responesecode.SUCCESS,
                 message:res,

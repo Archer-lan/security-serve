@@ -16,6 +16,7 @@ export enum Responesecode {
     Error14="此条结果值不存在",
     Error15="此条威胁绑定有脆弱性信息，请先删除脆弱性信息",
     Error16="此条资产绑定有威胁信息，请先删除威胁信息",
+    Error17="您赋予的权限过高",
     DONE1="注册成功",
     DONE2="登录成功",
     DONE3="修改密码成功",

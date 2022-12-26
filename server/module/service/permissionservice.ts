@@ -34,17 +34,47 @@ export class PermissionService{
         else return true;
     }
     //添加操作用户
-    async add(user:User,ass:Assessment){
+    async add(user:User,ass:Assessment,memberlevel:number){
+        if(memberlevel>=3){
+            throw Responesecode.Error17;
+        }
         let pers:Permission=new Permission();
         pers.user=user;
         pers.assessment=ass;
-        pers.level=1;
+        pers.level=memberlevel;
         pers.status=0;
         await pers.save(true);
         return true;
     }
     //是否是用户
     async isPermitted(request: HttpRequest,id:number){
+        let session = await SessionFactory.getSession(request);
+        let user = JSON.parse(await session.get('user'));
+
+        let params={
+            "assessment.id":{
+                value:id,
+                rel:'='
+            },
+            "user.id":{
+                value:user.id,
+                rel:'='
+            },
+            "level":{
+                value:2,
+                rel:'>='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            }
+        }
+        let pro=<Permission> await Permission.findOne(params);
+        if(!pro) return false;
+        else return true;
+    }
+    //是否拥有只读以上权限
+    async isReadAllow(request: HttpRequest,id:number){
         let session = await SessionFactory.getSession(request);
         let user = JSON.parse(await session.get('user'));
 
@@ -103,7 +133,7 @@ export class PermissionService{
     }
     //查找此评估对象对应所有协作者
     async queryAllHelper(request: HttpRequest, proid: any) {
-        let res=await this.isPermitted(request,proid);
+        let res=await this.isReadAllow(request,proid);
         if(!res){
             throw Responesecode.Error6;
         }
@@ -138,7 +168,7 @@ export class PermissionService{
         let session = await SessionFactory.getSession(request);
         let user = JSON.parse(await session.get('user'));
 
-        let res=await this.isPermitted(request,proid);
+        let res=await this.isReadAllow(request,proid);
         if(!res){
             throw Responesecode.Error6;
         }
@@ -193,5 +223,38 @@ export class PermissionService{
         pro.status=1;
         await pro.save(true);
         return Responesecode.DONE5;
+    }
+    //修改协作者权限
+    async alter(request: HttpRequest, proid: any, id, memberlevel: any) {
+        let res=await this.isCreator(request,proid);
+        if(!res){
+            throw Responesecode.Error6;
+        }
+        let params={
+            "id":{
+                value:id,
+                rel:'='
+            },
+            "assessment.id":{
+                value:proid,
+                rel:'='
+            },
+            "status":{
+                value:0,
+                rel:'='
+            },
+            "assessment.status":{
+                value:0,
+                rel:'='
+            },
+        }
+        let pro=<Permission> await Permission.findOne(params);
+        if(!pro) throw Responesecode.Error6;
+        if(memberlevel>=3){
+            throw Responesecode.Error17;
+        }
+        pro.level=memberlevel;
+        await pro.save(true);
+        return Responesecode.DONE7;
     }
 }

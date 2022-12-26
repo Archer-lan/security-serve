@@ -132,7 +132,7 @@ export class AssetsService{
     }
     //查询评估对象对应的所有资产
     async queryAll(request: HttpRequest, proid: any) {
-        let res=await this.permissionService.isPermitted(request,proid);
+        let res=await this.permissionService.isReadAllow(request,proid);
         if(!res){
             throw Responesecode.Error6;
         }

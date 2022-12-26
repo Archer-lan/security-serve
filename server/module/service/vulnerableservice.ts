@@ -132,7 +132,7 @@ export class VulnerableService{
     }
     //查找
     async queryAll(request: HttpRequest, proid: any) {
-        let res=await this.permissionService.isPermitted(request,proid);
+        let res=await this.permissionService.isReadAllow(request,proid);
         if(!res){
             throw Responesecode.Error6;
         }

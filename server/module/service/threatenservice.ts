@@ -139,7 +139,7 @@ export class ThreatenService{
     }
     //查找所有威胁
     async queryAll(request: HttpRequest, proid: any) {
-        let res=await this.permissionService.isPermitted(request,proid);
+        let res=await this.permissionService.isReadAllow(request,proid);
         if(!res){
             throw Responesecode.Error6;
         }

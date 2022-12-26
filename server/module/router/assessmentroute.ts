@@ -74,12 +74,13 @@ class AssessmentRoute extends BaseRoute{
 
     /**
      *   添加评估对象用户
-     *   @param name    评估对象名称
+     *   @param name     评估对象名称
      *   @param username 添加对象用户的名称
+     *   @param memberlevel 用户权限等级（1 只读，2 可修改，3 可删除）
      */
     async addMembers(){
         try{
-            let res=await this.assessmentService.addMembers(this.request,this.model.name,this.model.username);
+            let res=await this.assessmentService.addMembers(this.request,this.model.name,this.model.username,this.model.memberlevel);
             return {
                 result:Responesecode.SUCCESS,
                 message:res,
