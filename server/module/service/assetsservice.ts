@@ -182,6 +182,9 @@ export class AssetsService{
         }
         console.log(res);
         for(let i=0;i<res.length;i++){
+            if(res[i]===['']){
+                break;
+            }
             let asset:Assets=new Assets();
             asset.type=res[i][0];
             asset.name=res[i][1];
