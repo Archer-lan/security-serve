@@ -21,6 +21,7 @@ export class CalculateService{
         if(!vul){
             throw Responesecode.Error13;
         }
+        let res=[];
         //可能性矩阵
         let pos=new Array();
         pos.push([2,4,7,11,14]);
@@ -87,59 +88,73 @@ export class CalculateService{
             loss=lolevel[lo[vul[i].assets.importance-1][vul[i].value-1]];
             grade=r[loss-1][possible-1];
             gradeLevel=rlevel[grade];
-            let risk:Risk=new Risk();
-            risk.assets=asset;
-            risk.assessment=assessment;
-            risk.loss=loss;
-            risk.possibility=possible;
-            risk.risk=grade;
-            risk.grade=gradeLevel;
-            risk.status=0;
-            await risk.save(true);
+
+            let risk:Object={
+                vul:vul[i],
+                // assets:asset,
+                // assessments:assessment,
+                los:loss,
+                possibility:possible,
+                risk:grade,
+                grade:gradeLevel,
+                status:0,
+            }
+            res.push(risk);
+            //存储到数据库
+            // let risk:Risk=new Risk();
+            // risk.assets=asset;
+            // risk.assessment=assessment;
+            // risk.loss=loss;
+            // risk.possibility=possible;
+            // risk.risk=grade;
+            // risk.grade=gradeLevel;
+            // risk.status=0;
+            // await risk.save(true);
         }
-        return await this.queryAll(request,proid);
+        return res;
+        // return await this.queryAll(request,proid);
     }
     //查找当前评估对象所有结果值
-    async queryAll(request: HttpRequest, proid: any){
-        let params={
-            "assessment.id":{
-                value:proid,
-                rel:"="
-            },
-            "status":{
-                value:0,
-                rel:"="
-            }
-        }
-        let em:EntityManager=await getEntityManager();
-        let query:Query=em.createQuery(Risk.name);
-        let r=await query.select(["*","assets.*","assessment.*",])
-            .where(params)
-            .getResultList();
-        await em.close()
-        return r;
-    }
+    // async queryAll(request: HttpRequest, proid: any){
+    //     let params={
+    //         "assessment.id":{
+    //             value:proid,
+    //             rel:"="
+    //         },
+    //         "status":{
+    //             value:0,
+    //             rel:"="
+    //         }
+    //     }
+    //     let em:EntityManager=await getEntityManager();
+    //     let query:Query=em.createQuery(Risk.name);
+    //     let r=await query.select(["*","assets.*","assessment.*",])
+    //         .where(params)
+    //         .getResultList();
+    //     await em.close()
+    //     return r;
+    // }
     //删除计算结果值
-    async delete(request: HttpRequest, proid: any, id) {
-        if(!await this.permissionService.isPermitted(request,proid)) throw Responesecode.Error8;
-        let params={
-            "id":{
-                value:id,
-                rel:"="
-            },
-            "assessment.id":{
-                value:proid,
-                rel:'='
-            },
-            "status":{
-                value:0,
-                rel:'='
-            }
-        }
-        let risk:Risk=<Risk> await Risk.findOne(params);
-        if(!risk) throw Responesecode.Error14;
-        risk.status=1;
-        await risk.save(true);
-        return Responesecode.DONE5
-    }
+    // async delete(request: HttpRequest, proid: any, id) {
+    //     if(!await this.permissionService.isPermitted(request,proid)) throw Responesecode.Error8;
+    //     let params={
+    //         "id":{
+    //             value:id,
+    //             rel:"="
+    //         },
+    //         "assessment.id":{
+    //             value:proid,
+    //             rel:'='
+    //         },
+    //         "status":{
+    //             value:0,
+    //             rel:'='
+    //         }
+    //     }
+    //     let risk:Risk=<Risk> await Risk.findOne(params);
+    //     if(!risk) throw Responesecode.Error14;
+    //     risk.status=1;
+    //     await risk.save(true);
+    //     return Responesecode.DONE5
+    // }
 }

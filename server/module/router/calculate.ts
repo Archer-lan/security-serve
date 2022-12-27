@@ -35,18 +35,18 @@ class CalculateRoute extends BaseRoute{
      *   @param proid    评估对象ID
      *   @param id       计算结果id
      */
-    async delete(){
-        try{
-            let res=await this.calculateService.delete(this.request,this.model.proid,this.model.id);
-            return {
-                result:Responesecode.SUCCESS,
-                message:res,
-            }
-        }catch (e){
-            return {
-                result:Responesecode.FAIL,
-                message:e,
-            }
-        }
-    }
+    // async delete(){
+    //     try{
+    //         let res=await this.calculateService.delete(this.request,this.model.proid,this.model.id);
+    //         return {
+    //             result:Responesecode.SUCCESS,
+    //             message:res,
+    //         }
+    //     }catch (e){
+    //         return {
+    //             result:Responesecode.FAIL,
+    //             message:e,
+    //         }
+    //     }
+    // }
 }
