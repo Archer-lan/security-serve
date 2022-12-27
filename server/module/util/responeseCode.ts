@@ -24,5 +24,6 @@ export enum Responesecode {
     DONE5="删除成功",
     DONE6="添加成功",
     DONE7="修改成功",
-    DONE8="计算完成"
+    DONE8="计算完成",
+    DONE9="上传成功"
 }
